@@ -10,7 +10,7 @@ RUN pip install -r requirements.txt
 
 ## copy source code
 COPY . .
-
+RUN ls -a
 ENV PATH="/opt/venv/bin:$PATH"
 
 ## Start the uvicorn server and alembic migrations

@@ -10,12 +10,6 @@ services:
       - "5432:5432"
     env_file:
       - .env
-    # Run sql scripts on container start
-    volumes:
-      - ./docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
-    # Mount data volume
-
-
   server:
     build: server
     restart: always
