@@ -16,6 +16,7 @@ from models.cars import Cars
 from models.qr_codes import QrCodes
 from models.types_of_charging import TypesOfCharging
 from models.companies import Companies
+from models.charging_points import ChargingPoints
 
 
 # this is the Alembic Config object, which provides
