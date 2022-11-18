@@ -11,6 +11,12 @@ from alembic import context
 from database.base import Base
 from configs.vars import DATABASE_URL
 from models.test import Test
+from models.users import users
+from models.cars import Cars
+from models.qr_codes import QrCodes
+from models.types_of_charging import TypesOfCharging
+from models.companies import Companies
+
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
