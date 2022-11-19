@@ -17,7 +17,7 @@ from models.qr_codes import QrCodes
 from models.types_of_charging import TypesOfCharging
 from models.companies import Companies
 from models.charging_points import ChargingPoints
-from models.revuews import Revuews
+from server.models.reviews import Reviews
 from models.partners import Partners
 from models.transactions import Transactions
 
