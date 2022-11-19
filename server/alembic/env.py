@@ -10,7 +10,6 @@ from sqlalchemy import pool
 from alembic import context
 from database.base import Base
 from configs.vars import DATABASE_URL
-from models.test import Test
 from models.users import users
 from models.cars import Cars
 from models.qr_codes import QrCodes
