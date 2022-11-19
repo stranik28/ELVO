@@ -7,4 +7,5 @@ class Cars(Base):
     id = Column(Integer, primary_key=True)
     number = Column(String(50))
     pts_hash = Column(String(50))
-    verified = Column(Boolean)
+    verified = Column(Boolean, default=False)
+    denied = Column(Boolean, default=False)
