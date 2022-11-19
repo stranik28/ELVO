@@ -42,4 +42,14 @@ class CarRepository(BaseRepository):
         car_in_db = self.session.query(CarInDB).filter(CarInDB.verified == False).all()
         return car_in_db
 
+    def fast_verify(self, number: str):
+        # Verify car by number and denied = False
+        car_in_db = self.session.query(CarInDB).filter(CarInDB.number == number, CarInDB.denied == False).first()
+        # If car not found return False
+        if car_in_db is None:
+            return False
+        # If car found return True
+        else:
+            return True
+
     

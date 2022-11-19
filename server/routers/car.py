@@ -35,3 +35,7 @@ async def deny_car(id: int, car_service: get_car_service = Depends()):
 @router.get("/to_verify")
 async def car_to_verify(car_service: get_car_service = Depends()):
     return car_service.car_to_verify()
+
+@router.get("/fast_verify/{number}")
+async def fast_verify(number: str, car_service: get_car_service = Depends()):
+    return car_service.fast_verify(number)
