@@ -1,8 +1,5 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.orm import declarative_base
 from database.base import Base
-from models.qr_codes import QrCodes
-from models.cars import Cars
 
 class users(Base):
     __tablename__ = "users_table"
@@ -14,3 +11,4 @@ class users(Base):
     refresh_token = Column(String(50))
     cars = Column(Integer, ForeignKey('cars_table.id'))
     qr_id = Column(Integer, ForeignKey('qr_table.id'))
+    card = Column(String(50))

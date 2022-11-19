@@ -1,10 +1,9 @@
 from fastapi import FastAPI, HTTPException, Depends, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware import Middleware
-
-from routers.main import router as main_router
 from routers.charging_points import router as charging_points_router
 from routers.users import router as user_router
+from routers.reviews import router as reviews_router
 
 app = FastAPI(
     title="FastAPI",
@@ -15,9 +14,9 @@ app = FastAPI(
     redoc_url="/api/v1/redoc",
 )
 
-app.include_router(main_router)
 app.include_router(charging_points_router)
 app.include_router(user_router)
+app.include_router(reviews_router)
 
 app.add_middleware(
     CORSMiddleware,
