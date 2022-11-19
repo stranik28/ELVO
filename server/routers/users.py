@@ -29,5 +29,15 @@ async def delete_user(request: Request, id: int, user_service: get_user_service 
 async def patch_user(request: Request, id: int, user: create_partial_model(UserBaseSchema), user_service: get_user_service = Depends()):
     return user_service.patch_user(id, user)
 
+@router.get("/generate_qr_code/{id}")
+async def generate_qr_code(request: Request, id: int, user_service: get_user_service = Depends()):
+    return user_service.generate_qr_code(id)
+
+@router.get("/get_qr_code/{id}")
+async def get_qr_code(request: Request, hash:str, user_service: get_user_service = Depends()):
+    return user_service.get_qr_code(hash)
+    
+
+
 
 
