@@ -31,5 +31,5 @@ uvloop==0.17.0
 watchfiles==0.18.1
 websockets==10.4
 pydantic_partial==0.3.0
-pycryptodome==3.11.0
+passlib==1.7.4
 
