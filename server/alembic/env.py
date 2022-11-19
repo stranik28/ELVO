@@ -19,6 +19,9 @@ from models.charging_points import ChargingPoints
 from server.models.reviews import Reviews
 from models.partners import Partners
 from models.transactions import Transactions
+from models.requests import requests
+from models.ptses import pts
+from models.sts import sts
 
 
 # this is the Alembic Config object, which provides

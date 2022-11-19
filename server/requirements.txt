@@ -32,4 +32,6 @@ watchfiles==0.18.1
 websockets==10.4
 pydantic_partial==0.3.0
 passlib==1.7.4
+Pillow==9.2.0
+
 

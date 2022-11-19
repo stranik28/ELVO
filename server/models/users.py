@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, ARRAY
 from database.base import Base
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import declarative_base
@@ -11,9 +11,9 @@ class users(Base):
     id = Column(Integer, primary_key=True)
     fio = Column(String(255))
     login = Column(String(50))
-    hashed_password = Column(String(50))
+    hashed_password = Column(String(128))
     email = Column(String(50))
     refresh_token = Column(String(50))
-    cars = Column(Integer, ForeignKey('cars_table.id'))
+    cars = Column(ARRAY(Integer))
     qr_id = Column(Integer, ForeignKey('qr_table.id'))
-    card = Column(String(50))
+    # card = Column(String(50))

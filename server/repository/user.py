@@ -40,7 +40,16 @@ class UserRepository(BaseRepository):
         if(self.get_user_by_login(user["login"])):
             raise HTTPException(status_code=400, detail="User already exists")
         # create user
-        user = users(**user)
+        if(user["password"]):
+            user["hashed_password"] = pwd_context.hash(user["password"])
+            user.pop("password")
+        user = users(
+            hashed_password=user["hashed_password"],
+            login=user["login"],
+            fio=user["fio"],
+            email=user["email"],
+            cars=[0]
+        )
         # add user to session
         self.session.add(user)
         # commit session

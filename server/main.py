@@ -8,6 +8,7 @@ from routers.car import router as car_router
 from routers.transactions import router as transactions_router
 from routers.companies import router as companies_router
 from routers.partners import router as partners_router
+from routers.compresser import router as compresser_router
 
 app = FastAPI(
     title="FastAPI",
@@ -25,6 +26,7 @@ app.include_router(car_router)
 app.include_router(transactions_router)
 app.include_router(companies_router)
 app.include_router(partners_router)
+app.include_router(compresser_router)
 
 app.add_middleware(
     CORSMiddleware,

@@ -25,6 +25,13 @@ services:
     volumes:
       - ./server:/app
     working_dir: /app
+  nginx:
+    build: ./server/nginx
+    container_name: nginx-elvo-1
+    volumes:
+      - ./server/src:/var/www
+    ports:
+      - "4000:80"
 
 networks:
   container_net:

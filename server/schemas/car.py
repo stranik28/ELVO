@@ -1,9 +1,15 @@
 from pydantic import BaseModel
 
 class Car(BaseModel):
-    number: str
+    vin_pts: str
+    auto_model: str
+    body_color: str
+    engine_type: str
     pts_hash: str
-    pts_number: str
+
+    vin_sts: str
+    number: str
+    sts_hash: str
 
 class CarInDB(Car):
     id: int

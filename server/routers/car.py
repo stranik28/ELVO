@@ -13,8 +13,8 @@ async def get_car(id: int, car_service: get_car_service = Depends()):
     return car_service.get_car_by_id(id)
 
 @router.post("/")
-async def create_car(car: Car, car_service: get_car_service = Depends()):
-    return car_service.create_car(car)
+async def create_car(car: Car,user_id:int, car_service: get_car_service = Depends()):
+    return car_service.create_car(user_id,car)
 
 @router.put("/{id}")
 async def update_car(id: int, car: Car, car_service: get_car_service = Depends()):
@@ -24,18 +24,6 @@ async def update_car(id: int, car: Car, car_service: get_car_service = Depends()
 async def delete_car(id: int, car_service: get_car_service = Depends()):
     return car_service.delete_car(id)
 
-@router.put("/verify/{id}")
-async def verify_car(id: int, car_service: get_car_service = Depends()):
-    return car_service.verify_car(id, False)
-
-@router.put("/deny/{id}")
-async def deny_car(id: int, car_service: get_car_service = Depends()):
-    return car_service.verify_car(id, True)
-
-@router.get("/to_verify")
-async def car_to_verify(car_service: get_car_service = Depends()):
-    return car_service.car_to_verify()
-
-@router.get("/fast_verify/{number}")
-async def fast_verify(number: str, car_service: get_car_service = Depends()):
-    return car_service.fast_verify(number)
+@router.put("/status/{id}")
+async def verify_car(id: int,status:bool, car_service: get_car_service = Depends()):
+    return car_service.car_status(id, status)
