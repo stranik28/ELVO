@@ -32,6 +32,14 @@ services:
       - ./server/src:/var/www
     ports:
       - "4000:80"
+  # opencv:
+  #   image: dkimg/opencv:4.5.3-ubuntu
+  #   build: ./server/opencv
+  #   container_name: opencv-elvo-1
+  #   volumes:
+  #     - ./server/src:/var/www
+  #   ports:
+  #     - "4001:80"
 
 networks:
   container_net:

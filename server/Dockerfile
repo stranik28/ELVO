@@ -4,6 +4,10 @@ FROM python:3.8-slim AS compile-image
 RUN apt-get update && \
     apt-get upgrade -y
 
+RUN apt-get install tesseract-ocr -y&& \
+    apt-get install tesseract-ocr-eng -y &&\
+    apt-get install tesseract-ocr-rus -y 
+RUN apt-get install libgl1-mesa-glx -y
 ## install python dependencies
 COPY requirements.txt .
 RUN pip install -r requirements.txt

@@ -7,6 +7,10 @@ from fastapi import HTTPException
 from models.requests import requests
 from models.users import users
 
+import re
+import cv2
+import pytesseract as tess
+
 class CarRepository(BaseRepository):
     def get_cars(self):
         return self.session.query(CarInDB).all()
@@ -74,5 +78,60 @@ class CarRepository(BaseRepository):
         car_in_db.verified = status
         self.session.commit()
         return "Car status updated"
-
     
+    def check_pts(self,hash:str) ->str:
+        img = cv2.imread(f"src/{hash}/o.webp")
+        img = cv2.threshold(img, 0, 255, cv2.THRESH_TOZERO)[1]
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        filename = "{}.png".format("temp")
+        cv2.imwrite(filename, img)
+        text = tess.image_to_string(img, lang="rus+eng")
+        print(text)
+        # get VIN number from any text by splitting it by (VIN) and taking the second part
+        output = {}
+        vin = text.split("(VIN)")[1].split("\n")[1]
+        output["vin"] = vin
+        model = text.split("Марка, модель ТС")[1].split("\n")[1]
+        output["model"] = model
+        color = text.split("Цвет кузова (кабины, прицепа)")[1].split("\n")[0]
+        # search caps in color
+        color = re.findall(r"[A-ZА-Я]+", color)
+        if(len(color) > 0):
+            color = color[0]
+        else:
+            color = ""
+        output["color"] = color
+        type_of_engine = text.split("Тип двигателя")[1].split("\n")[0]
+        # get type of engine by regex of CAPS letters
+        type_of_engine = re.findall("[А-Я]+", type_of_engine)
+        if(len(type_of_engine) > 0):
+            type_of_engine = type_of_engine[0]
+        else:
+            type_of_engine = ""
+        output["type_of_engine"] = type_of_engine
+        return output
+        # 3313957a-682f-11ed-8752-0242ac130003
+    
+    def check_sts(self,hash:str) ->str:
+        # img = cv2.imread(f"src/{hash}/o.webp")
+        # img = cv2.threshold(img, 0, 255, cv2.THRESH_TOZERO)[1]
+        # img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        # filename = "{}.png".format("temp")
+        # cv2.imwrite(filename, img)
+        # text = tess.image_to_string(img, lang="rus+eng")
+        # print(text)
+        text = "ЕО тосонйокая ФкдеРАциЯ НЕБЕ\nСВИДЕТЕЛЬСТВО 0 РЕГИСТРАЦИИ тс\nCERTIFICAT D’IMMATRICULATION\n\nРегистрационный знак H3G4PTI1\nИлентификационный ножер (УМ)\nLFPHOA CORC1D49 162\n\napes, sane stern\nор, на\n\nЧН) в\n\nТод выпуска ТС 52\n\n \n\n \n\nШасси № ОТСУТСТВУЕТ\nКузов № LFPHOACCSCID4I162\nЦвот ЧЕРНЫЙ.\n\nМошиость двигателя, кВт/л. ©. 76.95/103\nЭкологический класс четвертый\nПаспорт \"TC cepuagyc. 40391\nРазрешенная шах масса, К4 4735\nMacca Ses нагрузки, КФ 1295\n\n31 08 № 708594\n\f"
+        output = {}
+        # get plate number from any text by splitting it by (VIN) and taking the second part
+        plate = text.split("Регистрационный знак")[1].split("\n")[0].replace(" ","")
+        output["plate"] = plate
+        # find vin by split text
+        vin = text.split(")")[1].split("\n")[1].replace(" ","")
+        output["vin"] = vin
+        # get color by split text
+        color = text.split("Цвот")[1].split("\n")[0].replace(" ","")
+        output["color"] = color
+        # find model by split text
+        
+        return output
+        # 4e6a2b5c-6840-11ed-9b5a-0242ac130003

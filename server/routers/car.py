@@ -27,3 +27,11 @@ async def delete_car(id: int, car_service: get_car_service = Depends()):
 @router.put("/status/{id}")
 async def verify_car(id: int,status:bool, car_service: get_car_service = Depends()):
     return car_service.car_status(id, status)
+
+@router.post("/check_pts")
+async def check_pts(hash: str, car_service: get_car_service = Depends()):
+    return car_service.check_pts(hash)
+
+@router.post("/check_sts")
+async def check_sts(hash: str, car_service: get_car_service = Depends()):
+    return car_service.check_sts(hash)
