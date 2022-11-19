@@ -102,7 +102,7 @@ class UserRepository(BaseRepository):
         hash = generate_qr_code(id)
         # get qr code by qr_id from user
         qr_code_from_db = self.session.query(QrCodes).filter(QrCodes.id == user.qr_id).first()
-        print(qr_code_from_db.__dict__)
+        # print(qr_code_from_db.__dict__)
         # if qr code exists
         if(qr_code_from_db):
             # update qr code
