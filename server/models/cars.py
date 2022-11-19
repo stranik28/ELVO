@@ -9,3 +9,4 @@ class Cars(Base):
     pts_hash = Column(String(50))
     verified = Column(Boolean, default=False)
     denied = Column(Boolean, default=False)
+    pts_number = Column(String(50))
