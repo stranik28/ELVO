@@ -112,24 +112,33 @@ class CarRepository(BaseRepository):
         return output
         # 3313957a-682f-11ed-8752-0242ac130003
     
-    def check_sts(self,hash:str) ->str:
-        # img = cv2.imread(f"src/{hash}/o.webp")
-        # img = cv2.threshold(img, 0, 255, cv2.THRESH_TOZERO)[1]
-        # img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        # filename = "{}.png".format("temp")
-        # cv2.imwrite(filename, img)
-        # text = tess.image_to_string(img, lang="rus+eng")
-        # print(text)
-        text = "ЕО тосонйокая ФкдеРАциЯ НЕБЕ\nСВИДЕТЕЛЬСТВО 0 РЕГИСТРАЦИИ тс\nCERTIFICAT D’IMMATRICULATION\n\nРегистрационный знак H3G4PTI1\nИлентификационный ножер (УМ)\nLFPHOA CORC1D49 162\n\napes, sane stern\nор, на\n\nЧН) в\n\nТод выпуска ТС 52\n\n \n\n \n\nШасси № ОТСУТСТВУЕТ\nКузов № LFPHOACCSCID4I162\nЦвот ЧЕРНЫЙ.\n\nМошиость двигателя, кВт/л. ©. 76.95/103\nЭкологический класс четвертый\nПаспорт \"TC cepuagyc. 40391\nРазрешенная шах масса, К4 4735\nMacca Ses нагрузки, КФ 1295\n\n31 08 № 708594\n\f"
+    def check_sts(self,hash:str) -> str:
+        img = cv2.imread(f"src/{hash}/o.webp")
+        img = cv2.threshold(img, 0, 255, cv2.THRESH_TOZERO)[1]
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        filename = "{}.png".format("temp")
+        cv2.imwrite(filename, img)
+        text = tess.image_to_string(img, lang="rus+eng")
+        print(text)
         output = {}
         # get plate number from any text by splitting it by (VIN) and taking the second part
         plate = text.split("Регистрационный знак")[1].split("\n")[0].replace(" ","")
+        if(not plate):
+            plate = text.split("Регeстрационный зак")[1].split("\n")[0].replace(" ","")
+        if(not plate):
+            plate = text.split("знак")[1].split("\n")[0].replace(" ","")
+        if (not plate):
+            plate = text.split("зак")[1].split("\n")[0].replace(" ", "")
         output["plate"] = plate
         # find vin by split text
         vin = text.split(")")[1].split("\n")[1].replace(" ","")
         output["vin"] = vin
         # get color by split text
         color = text.split("Цвот")[1].split("\n")[0].replace(" ","")
+        if(not color):
+            color = text.split("Цвет")[1].split("\n")[0].replace(" ","")
+            if(not color):
+                color = text.split("Цве")[1].split("\n")[0].replace(" ","")
         output["color"] = color
         # find model by split text
         

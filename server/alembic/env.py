@@ -22,6 +22,9 @@ from models.transactions import Transactions
 from models.requests import requests
 from models.ptses import pts
 from models.sts import sts
+from models.admin import admin
+from models.wallet import wallet
+from models.category import Category
 
 
 # this is the Alembic Config object, which provides

@@ -10,3 +10,4 @@ class Partners(Base):
     category = Column(String(50))
     body = Column(String(50))
     date = Column(DateTime(timezone=True), server_default=func.now())
+    company_id = Column(Integer)
